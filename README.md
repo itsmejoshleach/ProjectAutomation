@@ -1,69 +1,92 @@
 # Project Creation Automation Script
 
-This Python script automates the process of setting up a new software project. It helps you quickly create a project with essential files, initialize a Git repository, and push it to GitHub. It supports multiple languages, including Python, Bash Shell, Flutter, and HTML/CSS/JS.
+This Python script automates the process of creating a new project with essential files, initializing a Git repository, and pushing it to GitHub. It supports multiple programming languages, including Python, Bash Shell, Flutter, and HTML/CSS/JS. The script also integrates GitHub authentication for easy repository creation.
 
 ## Features
 
-- Creates a project folder with the given name
-- Generates a `README.md` file with the project name and description
-- Adds a `LICENSE` file with MIT License content
-- Creates a `.gitignore` file tailored to the selected programming language
-- For Python projects:
-  - Creates a virtual environment (`venv`)
-  - Generates a `requirements.txt` file
-  - Generates a `.env` file for environment variables
-- Initializes a Git repository
-- Creates an empty Git commit with the message `Root Commit`
-- Creates an `Initial Setup` commit with the `README.md`, `LICENSE`, and `.gitignore` files
-- Creates a GitHub repository and pushes the project to it
-- Default Language:
-
-- If no language is provided, the script defaults to Python.
-- GitHub Authentication:
-    - The script checks if the GITHUB_TOKEN is present in the `.env` file.
-    - If not, it will attempt to log in via the gh auth login command using the provided token from the `.env` file.
-    - Note: You must set up a GitHub personal access token in your `.env` file like this: `GITHUB_TOKEN=your_github_personal_access_token`
+- **Creates a Project Folder**: Generates a project folder with the provided name.
+- **Generates Key Files**:
+  - `README.md`: Project description.
+  - `LICENSE`: MIT License by default.
+  - `.gitignore`: Language-specific `.gitignore` rules (Python, Bash, Flutter, HTML/CSS/JS).
+  - For Python projects:
+    - `requirements.txt`: Template for Python dependencies.
+    - `.env`: For environment variables like GitHub token.
+    - `venv/`: Virtual environment folder.
+- **Git Operations**:
+  - Initializes a Git repository.
+  - Creates an empty commit with the message `Root Commit`.
+  - Adds and commits `README.md`, `LICENSE`, and `.gitignore` files with the message `Initial Setup`.
+  - Creates and pushes a repository to GitHub automatically.
+- **GitHub Authentication**: Uses a GitHub personal access token stored in a `.env` file for automatic authentication. If not present, the script prompts for login using the `gh` CLI.
 
 ## Prerequisites
 
-- Python 3.x
-- Git
-- GitHub CLI (`gh`)
+Before using this script, ensure you have the following installed:
 
-Ensure you have the necessary tools installed:
-
-- **Python**: [Download Python](https://www.python.org/downloads/)
+- **Python** (>=3.x): [Download Python](https://www.python.org/downloads/)
 - **Git**: [Download Git](https://git-scm.com/downloads)
-- **GitHub CLI**: [Download GitHub CLI](https://cli.github.com/)
+- **GitHub CLI (`gh`)**: [Download GitHub CLI](https://cli.github.com/)
 
+Additionally, you need to set up the GitHub CLI and authenticate with a personal access token (PAT). You can use the following command to log in:
 
-## Installation
-Clone this repository or download the script.
+gh auth login --with-token
 
-Install the required Python libraries (if any):
+Ensure you also install the python-dotenv package to load environment variables:
+```pip install python-dotenv```
 
-```pip install -r requirements.txt```
+## Setup
+Clone or download the script to your local machine.
+
+Create a .env file in the same directory as the script with your GitHub token:
+
+```GITHUB_TOKEN=your_github_personal_access_token```
+Note: You can generate a personal access token from your GitHub account here.
+
+Optionally, you can edit the .env file to configure defaults for your project creation, like the default language.
 
 ## Usage
-Run the script with the following syntax:
-``` python create_project.py <project_name> <description> <language>```
+To run the script, use the following command:
+
+```python create_project.py <project_name> <description> <language>```
 
 ## Parameters:
 - project_name: Name of the project (e.g., My New Project)
-- description: Short description of the project
-- language: The programming language for the project. Valid options are:
-    - Python
-    - Bash
-    - Flutter
-    - HTML & CSS & JS
-- Example:
-```python create_project.py "My Python Project" "This is a Python project" Python```
-This will create a new Python project with the following structure:
+- description: A short description of the project (e.g., This is a Python project)
+- language: The programming language to use for the project. The available options are:
+- Python (default)
+- Bash
+- Flutter
+- HTML & CSS & JS
+Examples:
+- Create a Python Project (default):
+```python create_project.py "My Python Project" "A simple Python project"```
+- Create a Flutter Project:
+```python create_project.py "My Flutter App" "A mobile app using Flutter" Flutter```
+- Create a Bash Project:
+```python create_project.py "My Bash Scripts" "A collection of useful bash scripts" Bash```
+- Create an HTML/CSS/JS Project:
+```python create_project.py "My Web Project" "A website built with HTML, CSS, and JS" "HTML & CSS & JS"```
+
+## What Happens When You Run the Script
+The script creates a project folder with the provided name.
+It generates the following files inside the project folder:
 - README.md
-- LICENSE
-- .gitignore (with Python-specific rules)
-- requirements.txt
-- .env
+- LICENSE (MIT license by default)
+- .gitignore (configured for the selected language)
+
+For Python projects, it also creates:
+- requirements.txt (for dependencies)
+- .env (to store environment variables like GitHub token)
 - venv/ (virtual environment)
-- A Git repository initialized
-- GitHub repository created and pushed
+
+Initializes a Git repository.
+Creates an empty commit with the message Root Commit.
+Creates a GitHub repository (if you’re authenticated with GitHub) and pushes the project to GitHub.
+
+## License
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Troubleshooting
+GitHub Authentication: If the script fails to authenticate with GitHub, ensure that you have the correct personal access token in your .env file or that you're logged in using the GitHub CLI (gh auth login).
+Dependencies: If you encounter missing dependencies, run pip install -r requirements.txt to install them.
