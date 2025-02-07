@@ -48,7 +48,7 @@ Optionally, you can edit the .env file to configure defaults for your project cr
 ## Usage
 To run the script, use the following command:
 
-```python create_project.py <project_name> <description> <language>```
+```python ProjectAutomation.py <project_name> <description> <language>```
 
 ## Parameters:
 - project_name: Name of the project (e.g., My New Project)
@@ -60,13 +60,13 @@ To run the script, use the following command:
 - HTML & CSS & JS
 Examples:
 - Create a Python Project (default):
-```python create_project.py "My Python Project" "A simple Python project"```
+```python ProjectAutomation.py "My Python Project" "A simple Python project"```
 - Create a Flutter Project:
-```python create_project.py "My Flutter App" "A mobile app using Flutter" Flutter```
+```python ProjectAutomation.py "My Flutter App" "A mobile app using Flutter" Flutter```
 - Create a Bash Project:
-```python create_project.py "My Bash Scripts" "A collection of useful bash scripts" Bash```
+```python ProjectAutomation.py "My Bash Scripts" "A collection of useful bash scripts" Bash```
 - Create an HTML/CSS/JS Project:
-```python create_project.py "My Web Project" "A website built with HTML, CSS, and JS" "HTML & CSS & JS"```
+```python ProjectAutomation.py "My Web Project" "A website built with HTML, CSS, and JS" "HTML & CSS & JS"```
 
 ## What Happens When You Run the Script
 The script creates a project folder with the provided name.
