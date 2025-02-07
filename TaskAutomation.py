@@ -2,6 +2,10 @@ import os
 import sys
 import subprocess
 import shutil
+from dotenv import load_dotenv
+
+# Load .env file if it exists
+load_dotenv()
 
 def create_project(project_name, description, language):
     # Step 1: Create project folder
@@ -59,8 +63,7 @@ def create_project(project_name, description, language):
 
     # Step 8: Create GitHub repository (Assuming authentication is done)
     repo_name = project_name.lower().replace(" ", "-")
-    subprocess.run(['gh', 'repo', 'create', repo_name, '--private', '--remote', 'origin'])
-    print(f"Created GitHub repository: {repo_name}")
+    create_github_repo(repo_name)
 
     # Step 9: Create "Initial Setup" commit
     subprocess.run(['git', 'add', '--all'])
@@ -70,6 +73,19 @@ def create_project(project_name, description, language):
     # Done
     print(f"Project {project_name} created and pushed to GitHub.")
 
+def create_github_repo(repo_name):
+    github_token = os.getenv('GITHUB_TOKEN')
+    if not github_token:
+        print("GitHub token not found in .env. Attempting to authenticate with GitHub CLI.")
+        authenticate_github()
+
+    subprocess.run(['gh', 'repo', 'create', repo_name, '--private', '--remote', 'origin'])
+    print(f"Created GitHub repository: {repo_name}")
+
+def authenticate_github():
+    subprocess.run(['gh', 'auth', 'login', '--with-token'], input=os.getenv('GITHUB_TOKEN').encode())
+    print("Authenticated with GitHub")
+
 if __name__ == "__main__":
     if len(sys.argv) != 4:
         print("Usage: python create_project.py <project_name> <description> <language>")
@@ -77,10 +93,11 @@ if __name__ == "__main__":
 
     project_name = sys.argv[1]
     description = sys.argv[2]
-    language = sys.argv[3]
+    language = sys.argv[3] if sys.argv[3] else "Python"  # Default to Python if no language is given
 
     if language not in ["Python", "Bash", "Flutter", "HTML & CSS & JS"]:
         print("Invalid language. Choose from 'Python', 'Bash', 'Flutter', or 'HTML & CSS & JS'.")
         sys.exit(1)
 
     create_project(project_name, description, language)
+
